@@ -1,3 +1,3 @@
 public enum Vari{
-VALKOINEN,MUSTA;
+  V,M;
 }
