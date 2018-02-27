@@ -99,7 +99,3 @@ public class Shakki{
   System.out.println(" ");
   }
 }
-
-
-  }
-}
