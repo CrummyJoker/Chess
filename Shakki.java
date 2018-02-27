@@ -63,22 +63,22 @@ public class Shakki{
           continue;
         }
         //Ratsut
-        if(i==1&&j==0){
+        if(i==0&&j==1){
            Ruutu r = new Ruutu(i,j,r3);
           lauta[i][j] = r;
           continue;
         }
-        if(i==6 && j==0){
+        if(i==0 && j==6){
           Ruutu r = new Ruutu(i,j,r4);
           lauta[i][j] = r;
           continue;
         }
-        if(i==1&&j==7){
+        if(i==7&&j==1){
         Ruutu r = new Ruutu(i,j,r1);
           lauta[i][j] = r;
           continue;
         }
-        if(i==6&&j==7){
+        if(i==7&&j==6){
           Ruutu r = new Ruutu(i,j,r2);
           lauta[i][j] = r;
           continue;
