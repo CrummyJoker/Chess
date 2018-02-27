@@ -57,12 +57,32 @@ public class Shakki{
           lauta[i][j] = r;
           continue;
         }
-        if(i==7&&j==7) {
+        if(i==7&&j==7){
           Ruutu r = new Ruutu(i,j,t2);
           lauta[i][j] = r;
           continue;
         }
-        
+        //Ratsut
+        if(i==1&&j==0){
+           Ruutu r = new Ruutu(i,j,r3);
+          lauta[i][j] = r;
+          continue;
+        }
+        if(i==6 && j==0){
+          Ruutu r = new Ruutu(i,j,r4);
+          lauta[i][j] = r;
+          continue;
+        }
+        if(i==1&&j==7){
+        Ruutu r = new Ruutu(i,j,r1);
+          lauta[i][j] = r;
+          continue;
+        }
+        if(i==6&&j==7){
+          Ruutu r = new Ruutu(i,j,r2);
+          lauta[i][j] = r;
+          continue;
+        }
         //kuningattaret
         if(i==7&&j==3) {
           Ruutu r = new Ruutu(i,j,q2);
@@ -97,5 +117,9 @@ public class Shakki{
       System.out.println();
     }
   System.out.println(" ");
+  }
+}
+
+
   }
 }
