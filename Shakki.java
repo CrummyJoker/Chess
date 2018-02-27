@@ -1,4 +1,4 @@
-import
+import java.util.*;
 public class Shakki{
   public static void main(String[] args){
     Ruutu[][] Lauta = new Ruutu[8][8];
@@ -15,11 +15,12 @@ public class Shakki{
       }
     }
     
-    Kuningatar k1 = new Kuningatar(Vari.V);
-    kuningattaret[0] = k1;
-    Kuningatar k2 = new Kuningatar(Vari.M);
-    kuningattaret[1] = k2;
-    
+    Kuningatar q1 = new Kuningatar(Vari.V);
+    kuningattaret[0] = q1;
+    Kuningatar q2 = new Kuningatar(Vari.M);
+    kuningattaret[1] = q2;
+    Kuningas k1 = new Kuningas(Vari.V);
+    Kuningas k2= new Kuningas(Vari.M);
     
     //luodaan muutkin nappulat
     
