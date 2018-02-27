@@ -57,6 +57,11 @@ public class Shakki{
           lauta[i][j] = r;
           continue;
         }
+        if(i==7&&j==7) {
+          Ruutu r = new Ruutu(i,j,t2);
+          lauta[i][j] = r;
+          continue;
+        }
         
         //kuningattaret
         if(i==7&&j==3) {
