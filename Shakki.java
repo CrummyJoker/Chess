@@ -83,6 +83,8 @@ public class Shakki{
           lauta[i][j] = r;
           continue;
         }
+        //Lähetit
+        if(i==0&&j==
         //kuningattaret
         if(i==7&&j==3) {
           Ruutu r = new Ruutu(i,j,q2);
