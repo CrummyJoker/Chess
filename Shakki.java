@@ -21,10 +21,10 @@ public class Shakki{
     Nappula k2= new Kuningas(Vari.M);
     
     //torni
-    Nappula t1  = new Torni(Vari.V);
-    Nappula t2  = new Torni(Vari.V);
-    Nappula t3  = new Torni(Vari.M);
-    Nappula t4  = new Torni(Vari.M);
+    Nappula t1  = new Nappula(Vari.V,Tyyppi.T);
+    Nappula t2  = new Nappula(Vari.V,Tyyppi.T);
+    Nappula t3  = new Nappula(Vari.M,Tyyppi.T);
+    Nappula t4  = new Nappula(Vari.M,Tyyppi.T);
     lauta[0][0] = t4;
     lauta[0][7] = t3;
     lauta[7][0] = t2;
