@@ -1,3 +1,3 @@
 public enum Vari{
-  V,M;
+  V,M,E
 }
