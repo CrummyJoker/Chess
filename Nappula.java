@@ -27,4 +27,10 @@ public class Nappula{
   void asetaY(int y) {
     this.y = y;
   }
+  int annaX() {
+    return x;
+  }
+   int annaY() {
+     return y;
+   }
 }
