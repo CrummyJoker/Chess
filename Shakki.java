@@ -1,39 +1,39 @@
 import java.util.*;
 public class Shakki{
   public static void main(String[] args){
-    Ruutu[][] Lauta = new Ruutu[8][8];
-    Sotilas[] sotilaat = new Sotilas[16];
+    Nappula[][] Lauta = new Ruutu[8][8];
+    Nappula[] sotilaat = new Sotilas[16];
     
     for (int i=0;i<16;i++) {
       if (i<8) {
-        Sotilas s = new Sotilas(Vari.M);
+        Nappula s = new Sotilas(Vari.M,Tyyppi.SOTILAS);
         sotilaat[i] = s;
       } else {
-        Sotilas s = new Sotilas(Vari.V);
+        Nappula s = new Sotilas(Vari.V,Tyyppi.SOTILAS);
         sotilaat[i] = s;
       }
     }
     
-    Kuningatar q1 = new Kuningatar(Vari.V);
-    Kuningatar q2 = new Kuningatar(Vari.M);
+    Nappula q1 = new Kuningatar(Vari.V);
+    Nappula q2 = new Kuningatar(Vari.M);
     
-    Kuningas k1 = new Kuningas(Vari.V);
-    Kuningas k2= new Kuningas(Vari.M);
+    Nappula k1 = new Kuningas(Vari.V);
+    Nappula k2= new Kuningas(Vari.M);
     
-    Torni t1  = new Torni(Vari.V);
-    Torni t2  = new Torni(Vari.V);
-    Torni t3  = new Torni(Vari.M);
-    Torni t4  = new Torni(Vari.M);
+    Nappula t1  = new Torni(Vari.V);
+    Nappula t2  = new Torni(Vari.V);
+    Nappula t3  = new Torni(Vari.M);
+    Nappula t4  = new Torni(Vari.M);
     
-    Lahetti l1 = new Lahetti(Vari.V);
-    Lahetti l2 = new Lahetti(Vari.V);
-    Lahetti l3 = new Lahetti(Vari.M);
-    Lahetti l4 = new Lahetti(Vari.M);
+    Nappula l1 = new Lahetti(Vari.V);
+    Nappula l2 = new Lahetti(Vari.V);
+    Nappula l3 = new Lahetti(Vari.M);
+    Nappula l4 = new Lahetti(Vari.M);
     
-    Ratsu r1  =new Ratsu(Vari.V);
-    Ratsu r2  =new Ratsu(Vari.V);
-    Ratsu r3  =new Ratsu(Vari.M);
-    Ratsu r4  =new Ratsu(Vari.M);
+    Nappula r1  =new Ratsu(Vari.V);
+    Nappula r2  =new Ratsu(Vari.V);
+    Nappula r3  =new Ratsu(Vari.M);
+    Nappula r4  =new Ratsu(Vari.M);
     
     
     //luodaan muutkin nappulat    
