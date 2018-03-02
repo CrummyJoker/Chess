@@ -36,4 +36,11 @@ public class Nappula{
    int annaY() {
      return y;
    }
-}
+  void asetaTyyppi(Tyyppi tyyppi) {
+    this.tyyppi = tyyppi;
+  }
+  Tyyppi annaTyyppi() {
+    return tyyppi;
+  }
+ }
+  
