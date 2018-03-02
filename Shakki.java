@@ -102,6 +102,24 @@ public class Shakki{
 
 
   }
+  public static void siirra(Nappula n,Nappula m) {
+     int nx = n.annaX();
+     int ny = n.annaY();
+     int mx = m.annaX();
+     int my = m.annaY();
+     Nappula temp = m;
+     if (n.onkoSiirtoLaillinen()) {
+       if (m.annaTyyppi()==E) { 
+         n.asetaKoo(mx,my);
+         temp.asetaKoo(nx,ny);
+       } else {
+         n.asetaKoo(mx,my);
+         temp.asetaKoo(nx,ny);
+         temp.asetaTyyppi(Tyyppi.E);
+     } else {
+      System.out.println("Siirto laiton!");
+     }
+  }
   public void printtaaLauta(){
     int sum = 0;
     String[][] a = new String[12][12]
