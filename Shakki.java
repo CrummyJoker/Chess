@@ -1,7 +1,7 @@
 import java.util.*;
 public class Shakki{
   public static void main(String[] args){
-    Nappula[][] Lauta = new Ruutu[8][8];
+    Nappula[][] lauta = new Ruutu[8][8];
     Nappula[] sotilaat = new Sotilas[16];
     
     for (int i=0;i<16;i++) {
@@ -20,10 +20,15 @@ public class Shakki{
     Nappula k1 = new Kuningas(Vari.V);
     Nappula k2= new Kuningas(Vari.M);
     
+    //torni
     Nappula t1  = new Torni(Vari.V);
     Nappula t2  = new Torni(Vari.V);
     Nappula t3  = new Torni(Vari.M);
     Nappula t4  = new Torni(Vari.M);
+    lauta[0][0] = t4;
+    lauta[0][7] = t3;
+    lauta[7][0] = t2;
+    lauta[7][7] = t1;
     
     Nappula l1 = new Lahetti(Vari.V);
     Nappula l2 = new Lahetti(Vari.V);
@@ -44,7 +49,7 @@ public class Shakki{
         //Tornit
         if(i==0&&j==0){
           Ruutu r = new Ruutu(i,j,t3);
-          lauta[i][j] = r;
+          l[i][j] = r;
           continue;
         }
         if(i==0&&j==7){
