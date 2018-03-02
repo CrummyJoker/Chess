@@ -152,8 +152,8 @@ public class Shakki{
       for (int q = 0; q<a.length;q++){
         System.out.print(a[p][q] + " ");
       }
-    }
       System.out.println();
     }
+  }
   
     
