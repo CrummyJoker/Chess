@@ -123,8 +123,8 @@ public class Shakki{
   public void printtaaLauta(){
     int sum = 0;
     String[][] a = new String[12][12]
-    for(Nappula a : lauta){
-       String[a.annaY()][a.annaX()] = a.toString();
+    for(Nappula b : lauta){
+       String[b.annaY()][b.annaX()] = b.toString();
     }
     for (int i = 0; i<a.length;i++){
       for (int j = 0; j<a.length;j++){
