@@ -125,7 +125,7 @@ public class Shakki{
     String[][] a = new String[12][12]
     for(int i = 0; i<8;i++){
       for (int j = 0; j<8;j++){
-       a[i][j] = lauta[i][j];
+       a[i][j] = lauta[i][j].toString();
       }
     }
     for (int i = 0; i<a.length;i++){
@@ -138,14 +138,14 @@ public class Shakki{
         for (int k=0;k<=7;k++){
       a[k][9] = ""+(k+1);
     }
-    a[9][0] = "A ";
-    a[9][1] = "B ";
-    a[9][2] = "C ";
-    a[9][3] = "D ";
-    a[9][4] = "E ";
-    a[9][5] = "F ";
-    a[9][6] = "G ";
-    a[9][7] = "H ";
+    a[9][0] = " A   ";
+    a[9][1] = " B   ";
+    a[9][2] = " C   ";
+    a[9][3] = " D   ";
+    a[9][4] = " E   ";
+    a[9][5] = " F   ";
+    a[9][6] = " G   ";
+    a[9][7] = " H ";
         
     
     for (int p = 0; p<a.length;p++){
