@@ -14,8 +14,8 @@ public class Shakki{
       }
     }
     
-    Nappula q1 = new Kuningatar(Vari.V);
-    Nappula q2 = new Kuningatar(Vari.M);
+    Nappula q1 = new Nappula(Vari.V);
+    Nappula q2 = new Nappula(Vari.M);
     
     Nappula k1 = new Kuningas(Vari.V);
     Nappula k2= new Kuningas(Vari.M);
