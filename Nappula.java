@@ -17,6 +17,9 @@ public class Nappula{
   String toString() {
     return printti;
   } 
+  boolean onkoSiirtoLaillinen() {
+    return Tyyppi.tyyppi.onkoSiirtoLaillinen();
+  }
   void asetaKoo(int x,int y) {
     this.x = x;
     this.y = y;
