@@ -82,8 +82,19 @@ public class Shakki{
     //alustetaan lauta
 
   }
-}
-
-
+  
+  public static void siirra(Nappula n, Nappula m) {
+    int nx = n.annaX();
+    int ny = n.annaY();
+    int mx = m.annaX();
+    int my = m.annaY();
+    Nappula temp = m;
+    if (n.onkoSiirtoLaillinen()) {
+      n.asetaKoo(mx,my);
+      temp.asetaKoo(nx,ny);
+    } else {
+      System.out.println("Siirto laiton!");
+    }
   }
 }
+
