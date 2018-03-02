@@ -102,4 +102,38 @@ public class Shakki{
 
 
   }
-}
+  public void printtaaLauta(){
+    int sum = 0;
+    String[][] a = new String[12][12]
+    for(Nappula a : lauta){
+       String[a.annaY()][a.annaX()] = a.toString();
+    }
+    for (int i = 0; i<a.length;i++){
+      for (int j = 0; j<a.length;j++){
+        if(a[i][j] == null){
+          a[i][j]=" ";
+        }
+      }
+    }
+        for (int k=0;k<=7;k++){
+      a[k][9] = ""+(k+1);
+    }
+    a[9][0] = "A ";
+    a[9][1] = "B ";
+    a[9][2] = "C ";
+    a[9][3] = "D ";
+    a[9][4] = "E ";
+    a[9][5] = "F ";
+    a[9][6] = "G ";
+    a[9][7] = "H ";
+        
+    
+    for (int p = 0; p<a.length;p++){
+      for (int q = 0; q<a.length;q++){
+        System.out.print(a[p][q] + " ");
+      }
+    }
+      System.out.println();
+    }
+  
+    
