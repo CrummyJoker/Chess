@@ -8,8 +8,10 @@ public class Nappula{
   Vari vari;
   Tyyppi tyyppi;
   
-  Nappula(Vari vari,Tyyppi tyyppi) {
+  Nappula(Vari vari,Tyyppi tyyppi,int x,int y) {
     this.vari = vari;
+    this.x = x;
+    this.y = y;
     printti = "["+vari+tyyppi.toString()+"]";
   }
   String toString() {
@@ -17,6 +19,12 @@ public class Nappula{
   } 
   void asetaKoo(int x,int y) {
     this.x = x;
+    this.y = y;
+  }
+  void asetaX(int x) {
+    this.x = x;
+  }
+  void asetaY(int y) {
     this.y = y;
   }
 }
