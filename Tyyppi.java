@@ -6,8 +6,23 @@ public enum Tyyppi{
     
   }
   , T("T") {
+  public boolean onkoSiirtoLaillinen(int Xmista, int Ymista, int Xmihin, int Ymihin) {
+    if (Xmista - Xmihin == 0 && Ymista - Ymihin != 0) { //yhden akselin suuntainen liike
+      return true;
+    }
+    if (Xmista - Xmihin != 0 && Ymista - Ymihin == 0) { // ja toisen akselin
+      return true;
+    } 
+    return false;
+  }
     
   }, L("L") {
+  public boolean onkoSiirtoLaillinen(int Xmista, int Ymista, int Xmihin, int Ymihin) {
+    if (Math.abs((Ymihin - Ymista)/(Xmihin - Xmista))== 1) {
+      return true;
+    }
+    return false;
+  }
     
   }, S("S") {
     boolean promootio;
