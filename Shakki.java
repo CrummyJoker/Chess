@@ -79,22 +79,22 @@ public class Shakki{
     
     //lauta 
     Nappula[][] lauta = new Nappula[8][8];
-    Nappula[0][0]=t1; Nappula[0][1]=r3; Nappula[0][2]=l3; Nappula[0][3]=q2;
-    Nappula[0][4]=k2; Nappula[0][5]=l4; Nappula[0][6]=r4; Nappula[0][7]=t4;
-    Nappula[1][0]=s9; Nappula[1][1]=s10; Nappula[1][2]=s11; Nappula[1][3]=s12;
-    Nappula[1][4]=s13; Nappula[1][5]=s14; Nappula[1][6]=s15; Nappula[1][7]=s16;
-    Nappula[2][0]=e1; Nappula[2][1]=e2; Nappula[2][2]=e3; Nappula[2][3]=e4;
-    Nappula[2][4]=e5; Nappula[2][5]=e6; Nappula[2][6]=e7; Nappula[2][7]=e8;
-    Nappula[3][0]=e9; Nappula[3][1]=e10; Nappula[3][2]=e11; Nappula[3][3]=e12;
-    Nappula[3][4]=e13; Nappula[3][5]=e14; Nappula[3][6]=e15; Nappula[3][7]=e16;
-    Nappula[4][0]=e17; Nappula[4][1]=e18; Nappula[4][2]=e19; Nappula[4][3]=e20;
-    Nappula[4][4]=e21; Nappula[4][5]=e22; Nappula[4][6]=e23; Nappula[4][7]=e24;
-    Nappula[5][0]=e25; Nappula[5][1]=e26; Nappula[5][2]=e27; Nappula[5][3]=e28;
-    Nappula[5][4]=e29; Nappula[5][5]=e30; Nappula[5][6]=e31; Nappula[5][7]=e32;
-    Nappula[6][0]=s1; Nappula[6][1]=s2; Nappula[6][2]=s3; Nappula[6][3]=s4;
-    Nappula[6][4]=s5; Nappula[6][5]=s6; Nappula[6][6]=s7; Nappula[6][7]=s8;
-    Nappula[7][0]=t1; Nappula[7][1]=r1; Nappula[7][2]=l1; Nappula[7][3]=q1;
-    Nappula[7][4]=k1; Nappula[7][5]=l2; Nappula[7][6]=r2; Nappula[7][7]=t2;
+    lauta[0][0]=t1; lauta[0][1]=r3; lauta[0][2]=l3; lauta[0][3]=q2;
+    lauta[0][4]=k2; lauta[0][5]=l4; lauta[0][6]=r4; lauta[0][7]=t4;
+    lauta[1][0]=s9; lauta[1][1]=s10; lauta[1][2]=s11; lauta[1][3]=s12;
+    lauta[1][4]=s13; lauta[1][5]=s14; lauta[1][6]=s15; lauta[1][7]=s16;
+    lauta[2][0]=e1; lauta[2][1]=e2; lauta[2][2]=e3; lauta[2][3]=e4;
+    lauta[2][4]=e5; lauta[2][5]=e6; lauta[2][6]=e7; lauta[2][7]=e8;
+    lauta[3][0]=e9; lauta[3][1]=e10; lauta[3][2]=e11; lauta[3][3]=e12;
+    lauta[3][4]=e13; lauta[3][5]=e14; lauta[3][6]=e15; lauta[3][7]=e16;
+    lauta[4][0]=e17; lauta[4][1]=e18; lauta[4][2]=e19; lauta[4][3]=e20;
+    lauta[4][4]=e21; lauta[4][5]=e22; lauta[4][6]=e23; lauta[4][7]=e24;
+    lauta[5][0]=e25; lauta[5][1]=e26; lauta[5][2]=e27; lauta[5][3]=e28;
+    lauta[5][4]=e29; lauta[5][5]=e30; lauta[5][6]=e31; lauta[5][7]=e32;
+    lauta[6][0]=s1; lauta[6][1]=s2; lauta[6][2]=s3; lauta[6][3]=s4;
+    lauta[6][4]=s5; lauta[6][5]=s6; lauta[6][6]=s7; lauta[6][7]=s8;
+    lauta[7][0]=t1; lauta[7][1]=r1; lauta[7][2]=l1; lauta[7][3]=q1;
+    lauta[7][4]=k1; lauta[7][5]=l2; lauta[7][6]=r2; lauta[7][7]=t2;
 
     
     
