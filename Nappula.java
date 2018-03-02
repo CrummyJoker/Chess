@@ -4,7 +4,7 @@ public class Nappula{
   private boolean onkoSyoty;
   int x;
   int y;
-  private printti;
+  private String printti;
   Vari vari;
   Tyyppi tyyppi;
   
