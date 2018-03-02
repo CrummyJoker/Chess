@@ -102,4 +102,23 @@ Nappula[7][4]=k1; Nappula[7][5]=l2; Nappula[7][6]=r2; Nappula[7][7]=t2;
 
 
   }
+  public static void siirra(Nappula n,Nappula m) {
+    int nx = n.annaX();
+    int ny = n.annaY();
+    int mx = m.annaX();
+    int my = m.annaY();
+    Nappula temp = m;
+    if (n.onkoSiirtoLaillinen()) {
+      if (m.annaTyyppi()==E) { 
+        n.asetaKoo(mx,my);
+        temp.asetaKoo(nx,ny);
+      } else {
+        n.asetaKoo(mx,my);
+        temp.asetaKoo(nx,ny);
+        temp.asetaTyyppi(Tyyppi.E);
+    } else {
+      System.out.println("Siirto laiton!");
+    }
+  }
+  
 }
