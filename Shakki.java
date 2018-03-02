@@ -120,11 +120,13 @@ public class Shakki{
       System.out.println("Siirto laiton!");
      }
   }
-  public void printtaaLauta(){
+  public void printtaaLauta(Nappula[][] lauta){
     int sum = 0;
     String[][] a = new String[12][12]
-    for(Nappula b : lauta){
-       String[b.annaY()][b.annaX()] = b.toString();
+    for(int i = 0; i<8;i++){
+      for (int j = 0; j<8;j++){
+       a[i][j] = lauta[i][j];
+      }
     }
     for (int i = 0; i<a.length;i++){
       for (int j = 0; j<a.length;j++){
