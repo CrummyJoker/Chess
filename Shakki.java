@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 public class Shakki{
   public static void main(String[] args){
@@ -155,5 +156,89 @@ public class Shakki{
       System.out.println();
     }
   }
+    //Tallennus
+  
+public void tallenna(){
+   
+   FileOutputStream fos = new FileOutputStream("shakki.ser");
+   ObjectOutputStream oos = new ObjectOutputStream(fos);
+    
+    oos.writeObject(q1); oos.writeObject(q2);
+
+oos.writeObject(k1); oos.writeObject(k2);
+
+oos.writeObject(t1); oos.writeObject(t2);
+oos.writeObject(t3); oos.writeObject(t4);
+
+oos.writeObject(r1); oos.writeObject(r2);
+oos.writeObject(r3); oos.writeObject(r4);
+
+oos.writeObject(l1); oos.writeObject(l2);
+oos.writeObject(l3); oos.writeObject(l4);
+
+oos.writeObject(s1); oos.writeObject(s2); oos.writeObject(s3); oos.writeObject(s4);
+oos.writeObject(s5); oos.writeObject(s6); oos.writeObject(s7); oos.writeObject(s8);
+oos.writeObject(s9); oos.writeObject(s10); oos.writeObject(s11); oos.writeObject(s12);
+oos.writeObject(s13); oos.writeObject(s14); oos.writeObject(s15); oos.writeObject(s16);
+
+oos.writeObject(e1); oos.writeObject(e2); oos.writeObject(e3); oos.writeObject(e4);
+oos.writeObject(e5); oos.writeObject(e6); oos.writeObject(e7); oos.writeObject(e8);
+oos.writeObject(e9); oos.writeObject(e10); oos.writeObject(e11); oos.writeObject(e12);
+oos.writeObject(e13); oos.writeObject(e14); oos.writeObject(e15); oos.writeObject(e16);
+oos.writeObject(e17); oos.writeObject(e18); oos.writeObject(e19); oos.writeObject(e20);
+oos.writeObject(e21); oos.writeObject(e22); oos.writeObject(e23); oos.writeObject(e24);
+oos.writeObject(e25); oos.writeObject(e26); oos.writeObject(e27); oos.writeObject(e28);
+oos.writeObject(e29); oos.writeObject(e30); oos.writeObject(e31); oos.writeObject(e32);
+    
+    
+
+
+   oos.close();
+ }
+public void lataaTallennus(){
+   FileInputStream fis = new FileInputStream("shakki.ser");
+   ObjectInputStream ois = new ObjectInputStream(fis);
+    
+    q1 = (Nappula) ois.readObject(); q2 = (Nappula) ois.readObject();
+    
+    k1 = (Nappula) ois.readObject(); k2 = (Nappula) ois.readObject();
+  
+    t1 = (Nappula) ois.readObject(); t2 = (Nappula) ois.readObject();
+    t3 = (Nappula) ois.readObject(); t4 = (Nappula) ois.readObject();
+    
+    r1 = (Nappula) ois.readObject(); r2 = (Nappula) ois.readObject();
+    r3 = (Nappula) ois.readObject(); r4 = (Nappula) ois.readObject();
+  
+    l1 = (Nappula) ois.readObject(); l2 = (Nappula) ois.readObject();
+    l3 = (Nappula) ois.readObject(); l4 = (Nappula) ois.readObject();
+   
+    s1 = (Nappula) ois.readObject(); s2 = (Nappula) ois.readObject(); s3 = (Nappula) ois.readObject(); 
+    s4 = (Nappula) ois.readObject(); s5 = (Nappula) ois.readObject(); s6 = (Nappula) ois.readObject(); 
+    s7 = (Nappula) ois.readObject(); s8 = (Nappula) ois.readObject(); s9 = (Nappula) ois.readObject(); 
+    s10 = (Nappula) ois.readObject(); s11 = (Nappula) ois.readObject(); s12 = (Nappula) ois.readObject();
+    s13 = (Nappula) ois.readObject(); s14 = (Nappula) ois.readObject(); s15 = (Nappula) ois.readObject(); 
+    s16 = (Nappula) ois.readObject();
+
+    e1 = (Nappula) ois.readObject(); e2 = (Nappula) ois.readObject(); e3 = (Nappula) ois.readObject();
+    e4 = (Nappula) ois.readObject(); e5 = (Nappula) ois.readObject(); e6 = (Nappula) ois.readObject();
+    e7 = (Nappula) ois.readObject(); e8 = (Nappula) ois.readObject(); e9 = (Nappula) ois.readObject();
+    e10 = (Nappula) ois.readObject(); e11 = (Nappula) ois.readObject(); e12 = (Nappula) ois.readObject();
+    e13 = (Nappula) ois.readObject(); e14 = (Nappula) ois.readObject(); e15 = (Nappula) ois.readObject();
+    e16 = (Nappula) ois.readObject(); e17 = (Nappula) ois.readObject(); e18 = (Nappula) ois.readObject();
+    e19 = (Nappula) ois.readObject(); e20 = (Nappula) ois.readObject(); e21 = (Nappula) ois.readObject();
+    e22 = (Nappula) ois.readObject(); e23 = (Nappula) ois.readObject(); e24 = (Nappula) ois.readObject();
+    e25 = (Nappula) ois.readObject(); e26 = (Nappula) ois.readObject(); e27 = (Nappula) ois.readObject();
+    e28 = (Nappula) ois.readObject(); e29 = (Nappula) ois.readObject(); e30 = (Nappula) ois.readObject();
+    e31 = (Nappula) ois.readObject(); e32 = (Nappula) ois.readObject();
+
+
+    ois.close();
+
+  }
+
+  }
+ }
+
+}
   
     
