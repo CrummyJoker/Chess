@@ -4,7 +4,7 @@ public class Nappula{
   private boolean onkoSyoty;
   int x;
   int y;
-  private printti;
+  private String printti;
   Vari vari;
   Tyyppi tyyppi;
   
@@ -14,11 +14,12 @@ public class Nappula{
     this.y = y;
     printti = "["+vari+tyyppi.toString()+"]";
   }
-  String toString() {
+  public String toString() {
     return printti;
   } 
-  boolean onkoSiirtoLaillinen() {
-    return Tyyppi.tyyppi.onkoSiirtoLaillinen();
+  boolean onkoSiirtoLaillinen(int nx,int ny,int mx,int my) {
+    boolean temp = tyyppi.onkoSiirtoLaillinen(nx,ny,mx,my,this.vari,this.onkoSiirretty);
+    return temp;
   }
   void asetaKoo(int x,int y) {
     this.x = x;
@@ -36,4 +37,29 @@ public class Nappula{
    int annaY() {
      return y;
    }
-}
+  void asetaTyyppi(Tyyppi tyyppi) {
+    this.tyyppi = tyyppi;
+    printti = "["+vari+tyyppi.toString()+"]";
+  }
+  Tyyppi annaTyyppi() {
+    return tyyppi;
+  }
+  boolean annaOnkoSiirretty() {
+    return onkoSiirretty;
+  }
+  void asetaOnkoSiirretty(boolean x) {
+    this.onkoSiirretty = x;
+  }
+  boolean annaOnkoSyoty() {
+    return onkoSyoty;
+  }
+  void asetaOnkoSyoty(boolean b) {
+    onkoSyoty = b;
+  }
+  Vari annaVari() {
+    return vari;
+  }
+  void asetaVari(Vari vari) {
+    this.vari = vari;
+  }
+ }
