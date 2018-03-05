@@ -8,38 +8,41 @@ public class Nappula{
   Vari vari;
   Tyyppi tyyppi;
   
-  Nappula(Vari vari,Tyyppi tyyppi,int x,int y) {
+  public Nappula(Vari vari,Tyyppi tyyppi,int x,int y) {
     this.vari = vari;
     this.x = x;
     this.y = y;
     printti = "["+vari+tyyppi.toString()+"]";
   }
-  String toString() {
+  public String toString() {
     return printti;
   } 
-  boolean onkoSiirtoLaillinen() {
-    return Tyyppi.tyyppi.onkoSiirtoLaillinen();
-  }
-  void asetaKoo(int x,int y) {
+ // boolean onkoSiirtoLaillinen() { Metodi on jo kirjoitettu Tyyppi-enumiin
+   // return Tyyppi.tyyppi.onkoSiirtoLaillinen();
+  //}
+  public void asetaKoo(int x,int y) {
     this.x = x;
     this.y = y;
   }
-  void asetaX(int x) {
+  public void asetaX(int x) {
     this.x = x;
   }
-  void asetaY(int y) {
+  public void asetaY(int y) {
     this.y = y;
   }
-  int annaX() {
+  public int annaX() {
     return x;
   }
-   int annaY() {
+  public int annaY() {
      return y;
    }
-  void asetaTyyppi(Tyyppi tyyppi) {
+  public Vari annaVari(){
+    return vari;
+  }
+  public void asetaTyyppi(Tyyppi tyyppi) {
     this.tyyppi = tyyppi;
   }
-  Tyyppi annaTyyppi() {
+  public Tyyppi annaTyyppi() {
     return tyyppi;
   }
  }
