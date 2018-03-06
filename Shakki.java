@@ -103,24 +103,36 @@ public class Shakki{
 
 
   }
-  public static void siirra(Nappula n,Nappula m) {
+ public static void siirra(Nappula n,Nappula m,Nappula[][] lauta) {
+
      int nx = n.annaX();
      int ny = n.annaY();
      int mx = m.annaX();
      int my = m.annaY();
      Nappula temp = m;
-     if (n.onkoSiirtoLaillinen()) {
-       if (m.annaTyyppi()==E) { 
+     Tyyppi te = n.annaTyyppi();
+
+     if (te.onkoSiirtoLaillinen(nx,ny,mx,my,n.annaVari(),n.annaOnkoSiirretty(),n.annaTyyppi())) {
+       n.asetaOnkoSiirretty(true);
+       if (m.annaTyyppi()==Tyyppi.E) {
+         System.out.println("Sussee");
          n.asetaKoo(mx,my);
+         lauta[mx][my] = n;
          temp.asetaKoo(nx,ny);
+         lauta[nx][ny] = temp;
        } else {
          n.asetaKoo(mx,my);
+         lauta[mx][my] = n;
          temp.asetaKoo(nx,ny);
-         temp.asetaTyyppi(Tyyppi.E);
+         lauta[nx][ny] = temp;
+         m.asetaTyyppi(Tyyppi.E); //syöminen ei toimi
+         m.asetaVari(Vari.E);
+       }
      } else {
       System.out.println("Siirto laiton!");
      }
   }
+  
   public void printtaaLauta(Nappula[][] lauta){
     int sum = 0;
     String[][] a = new String[12][12]
