@@ -12,6 +12,7 @@ public class Nappula{
     this.vari = vari;
     this.x = x;
     this.y = y;
+    this.tyyppi=tyyppi;
     printti = "["+vari+tyyppi.toString()+"]";
   }
   public String toString() {
