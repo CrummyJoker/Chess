@@ -1,24 +1,12 @@
-public enum Tyyppi{ 
-    public enum Tyyppi{
-  K("K"), Q("Q"), T("T"), L("L"), S("S"), R("R"), E(" ");
-  //Note: The constructor for an enum type must be package-private or private access. 
-  //It automatically creates the constants that are defined at the beginning of the enum body. You cannot invoke an enum constructor yourself. 
-  private String symboli;
-  private Tyyppi(String symboli) {
-    this.symboli = symboli;
-  }
-  public String annaSymboli() {return symboli;}
-  
-  // }, S("S") {
-  //  boolean promootio; // Mieluummin Shakki-luokkaan
-  //  boolean ohesta; // Myöskin mieluummin Shakki-luokkaan
-// eri enum-vakioille ei voi uudelleentoteuttaa samaa metodia(?) vaan on käytettävä yhtä samaa metodia niille kaikille
-        // Metodi testaa, onko siirron vaatima liikerata sallittu kyseenomaiselle nappulatyypille
-    public boolean onkoSiirtoLaillinen(int Xmista, int Ymista, int Xmihin, int Ymihin, Vari v, boolean siirretty, Tyyppi t) {
-      if (t==Tyyppi.S){ //sotilas
+// pelinappulan tyyppi: S=sotilas, T=torni, L=lähetti, R=ratsu, Q=kuningatar, K=kuningas, E=tyhjä "ei nappulaa"
+// onkoSiirtoLaillinen():boolean Jos siirto laillinen siirtyvälle nappulalle, return true. Else return false.
+public enum Tyyppi{
+  S("S"){
+     //onko siirto sallittu sotilaan liikeradoille: ensimmäisellä siirrolla 1 tai 2 ruutua eteen, muilla siirroilla 1 eteen, syödessä 1 vinottain eteen
+      public boolean onkoSiirtoLaillinen(int Xmista, int Xmihin, int Ymista, int Ymihin, Vari v, boolean siirretty) {
+        // valkeat sotilaat
         if (v == Vari.M) {
-          if (Xmihin - Xmista == 1 && (Ymihin - Ymista == -1 || Ymihin - Ymista == 1)) { // syÃ¶nti: diagonaalinen siirto
-            //siirra(); //siirra() siirretty Shakki-luokkaan samannimisen metodin alle
+          if (Xmihin - Xmista == 1 && (Ymihin - Ymista == -1 || Ymihin - Ymista == 1)) { // syönti: diagonaalinen siirto
             return true;
           }
           if (siirretty == false) { //
@@ -26,20 +14,19 @@ public enum Tyyppi{
               //siirra();
               return true; //vaihda sotilaan onSiirretty-attribuutin arvoksi true ja palauta true
             }
-          } else { // ei ensimmÃ¤inen siirto
+          } else { // ei ensimmäinen siirto
             if (Xmihin - Xmista == 1 && Ymihin - Ymista == 0) {
               return true;
             }
           }
-        } else { // sama kuin edellÃ¤ valkeille nappuloille
+          // mustat sotilaat
+        } else {
           if (Xmihin - Xmista == -1 && (Ymihin - Ymista == -1 || Ymihin - Ymista == 1))
-          { // syÃ¶nti
-            //siirra();
+          {
             return true;
           }
           if (siirretty == false) {
             if ((Xmihin - Xmista == -2 || Xmihin - Xmista == -1) && Ymihin - Ymista == 0) {
-              //siirra();
               return true;
             }
           } else {
@@ -48,63 +35,84 @@ public enum Tyyppi{
             }
           }
         }
-    //return false; //ehkä loppuun? Joo loppuun!!
+        return false;
       }
-      //torni
-      if (t==Tyyppi.T){
-        if (Xmista - Xmihin == 0 && Ymista - Ymihin != 0) { //yhden akselin suuntainen liike
-          return true;
-        } else if (Xmista - Xmihin != 0 && Ymista - Ymihin == 0) { // ja toisen akselin
-          return true;
-        } else {
+    }
+  ,
+    // torni
+    T("T") {
+       public boolean onkoSiirtoLaillinen(int Xmista, int Xmihin, int Ymista, int Ymihin, Vari v, boolean siirretty) {
+         if (Xmista - Xmihin == 0 && Ymista - Ymihin != 0) { // laudan y-akselin suuntainen liike
+            return true;
+          } else if (Xmista - Xmihin != 0 && Ymista - Ymihin == 0) { // x-akselin suuntainen liike
+            return true;
+          }
           return false;
-        }
-      }
-      
-      // lähetti
-      if (t==Tyyppi.L){
+       }
+    }
+  ,
+    // lähetti
+    L("L") {
+      public boolean onkoSiirtoLaillinen(int Xmista, int Xmihin, int Ymista, int Ymihin, Vari v, boolean siirretty) {
         if (Math.abs((Ymihin - Ymista)/(Xmihin - Xmista))== 1) {
-          return true;
-        } else { 
-          return false;
+            return true; 
         }
+        return false;
       }
-      
-      //Q
-      if (t==Tyyppi.Q) {
+    }
+  ,
+    // ratsu
+    R("R") {
+      public boolean onkoSiirtoLaillinen(int Xmista, int Xmihin, int Ymista, int Ymihin, Vari v, boolean siirretty) {
+        if ((Math.abs(Ymihin - Ymista) == 2 && Math.abs(Xmihin - Xmista) == 1) || (Math.abs(Ymihin - Ymista) == 1 && Math.abs(Xmihin - Xmista) == 2)) {
+            return true;
+        }
+        return false;
+      }
+    }
+    ,
+      // kuningatar
+    Q("Q") {
+      public boolean onkoSiirtoLaillinen(int Xmista, int Xmihin, int Ymista, int Ymihin, Vari v, boolean siirretty){
         if (Math.abs((Ymihin - Ymista)/(Xmihin - Xmista))== 1) { //diagonaalinen liike
           return true;
-        } else if (Xmista - Xmihin == 0 && Ymista - Ymihin != 0) { //yhden akselin suuntainen liike
-          return true;
-        } else if (Xmista - Xmihin != 0 && Ymista - Ymihin == 0) { // ja toisen akselin
-          return true;
-        } else {
-          return false;
         }
-      }
-      // Kuningas
-      if (t==Tyyppi.K) {
-        if (Math.abs(Ymihin - Ymista) == 1 && Math.abs(Xmihin - Xmista) == 1) { //diagonaalinen liike
+        if (Xmista - Xmihin == 0 && Ymista - Ymihin != 0) { // laudan y-akselin suuntainen liike
           return true;
-        } else if ((Math.abs(Ymihin - Ymista) ==1 && Math.abs(Xmihin - Xmista) == 0) || (Math.abs(Ymihin - Ymista) ==0 && Math.abs(Xmihin - Xmista) == 1)){
-          return true;
-        } else {
-          return false;
         }
-      }
-      //Ratsu
-      if (t==Tyyppi.R) {
-        if ((Math.abs(Ymihin - Ymista) == 2 && Math.abs(Xmihin - Xmista) == 1) || (Math.abs(Ymihin - Ymista) == 1 && Math.abs(Xmihin - Xmista) == 2)) {
+        if (Xmista - Xmihin != 0 && Ymista - Ymihin == 0) { // laudan x-akselin suuntainen liike
           return true;
-        } else {
-          return false;
         }
-      }
-      // tyhjä nappula
-      if (t==Tyyppi.E) {
         return false;
-      } 
-      return false;
+      }
     }
+ ,
+   //kuningas
+    K("K") {
+      public boolean onkoSiirtoLaillinen(int Xmista, int Xmihin, int Ymista, int Ymihin, Vari v, boolean siirretty) {
+        if (Math.abs(Ymihin - Ymista) == 1 && Math.abs(Xmihin - Xmista) == 1) { //diagonaalinen liike, siirtyy yhden ruudun vinottain
+            return true;
+        }
+        // x- ja y-akselien suuntainen liike: siirtyy yhden ruudun jommallakummalla akselilla kumpaan tahansa suuntaan
+        if ((Math.abs(Ymihin - Ymista) ==1 && Math.abs(Xmihin - Xmista) == 0) || (Math.abs(Ymihin - Ymista) ==0 && Math.abs(Xmihin - Xmista) == 1)){
+          return true;
+        }
+        return false;
+      }
+    }
+  , 
+    // ei nappulaa
+   E("E") {
+     public boolean onkoSiirtoLaillinen(int Xmista, int Xmihin, int Ymista, int Ymihin, Vari v, boolean siirretty) {
+        return false; //tyhjää ei voi siirtää, palauta aina false
+      }
+    };
+ 
+
+  private String symboli;
+  private Tyyppi(String symboli) {
+    this.symboli = symboli;
   }
+  public String annaSymboli() {return symboli;}
+  public abstract  boolean onkoSiirtoLaillinen(int Xmista, int Ymista, int Xmihin, int Ymihin,Vari v, boolean b);
 }
