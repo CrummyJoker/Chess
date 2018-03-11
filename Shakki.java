@@ -114,9 +114,27 @@ Shakki.printtaaLauta(lauta);
     
     //try-catchit nappaavat käyttäjän kirjoittamat virhearvot. Exceptionit pitäisi saada samaan lohkoon, ks. kommentti alla
     while (peliKaynnissa) {
+      System.out.println("Tervetuloa pelaamaan shakkia!");
+      System.out.println("Jos haluat ladata pelin, kirjoita 'LG'.");
+      System.out.println("Muutoin paina Enter");
+      String aloitus = sc.nextLine();
+      if (aloitus == "LG";){
+        lauta = lataaTallennus();
+      }
+      System.out.println("Aloitetaan peli");
+      System.out.println("Jos haluat lopettaa, kirjoita'Q'");
       System.out.println("Siirra nappulaa : ");
       String n = sc.nextLine();
       String m = sc.nextLine();
+      if (n =="Q"||m=="Q"){
+          System.out.println("Tallennetaanko peli (Y/Mitä vain)?");
+          String tallennanna = sc.nextLine();
+          if (tallennanna == "Y"){
+            tallenna();
+          }
+          
+          peliKaynnissa = false;
+        }
       char nc = n.charAt(0);
       char mc = m.charAt(0);
       try {
