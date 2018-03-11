@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.*;
 // PELIN PERUSLOGIIKKA TOIMII
 //ohestalyönti puuttuu, kuninkaan matittaminen puuttuu (peli loppuu nyt kuninkaan syömiseen), sotilaan promootio puuttuu
-// pelin kesken lopettaminen ja tallentaminen puuttuu ("Tallenna ja lopeta? y/n" tms.)
 public class Shakki{
   public static void main(String[] args){
 
