@@ -403,7 +403,7 @@ public class Shakki{
 public static void tallenna(Nappula[][] lauta){
 
   try{ 
-  FileOutputStream fos = new FileOutputStream("C:\\Users\\user\\OneDrive\\Asiakirjat\\Javat\\Shakki\\Chess-MarttaY-patch-1\\shakki1.ser");
+  FileOutputStream fos = new FileOutputStream("C:\\Users\\Public\\Documents\\shakki.ser");
    ObjectOutputStream oos = new ObjectOutputStream(fos);
    oos.writeObject(lauta);
 
@@ -417,7 +417,7 @@ public static void tallenna(Nappula[][] lauta){
     
     //Lataa
 public static Nappula[][] lataaTallennus(Nappula[][] lauta){ 
-  try{FileInputStream fis = new FileInputStream("C:\\Users\\user\\OneDrive\\Asiakirjat\\Javat\\Shakki\\Chess-MarttaY-patch-1\\shakki1.ser");
+  try{FileInputStream fis = new FileInputStream("C:\\Users\\Public\\Documents\\shakki.ser");
    ObjectInputStream ois = new ObjectInputStream(fis);
    lauta = (Nappula[][]) ois.readObject();
    ois.close();
