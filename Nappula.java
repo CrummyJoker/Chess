@@ -1,26 +1,29 @@
 public class Nappula{
-  private boolean onkoSiirretty;
-  private boolean voikoSiirtaa;
-  private boolean onkoSyoty;
+  private boolean onkoSiirretty = false;
+  private boolean onkoSyoty = false; //tata attribuuttia ei kayteta pelissa viela mihinkaan
   int x;
   int y;
   private String printti;
   Vari vari;
   Tyyppi tyyppi;
   
-  public Nappula(Vari vari,Tyyppi tyyppi,int x,int y) {
+  Nappula(Vari vari,Tyyppi tyyppi,int x,int y) {
     this.vari = vari;
+    this.tyyppi = tyyppi;
     this.x = x;
     this.y = y;
-    this.tyyppi=tyyppi;
     printti = "["+vari+tyyppi.toString()+"]";
   }
+  
   public String toString() {
     return printti;
-  } 
- // boolean onkoSiirtoLaillinen() { Metodi on jo kirjoitettu Tyyppi-enumiin
-   // return Tyyppi.tyyppi.onkoSiirtoLaillinen();
-  //}
+  }
+  boolean annaOnkoSiirretty() {
+    return onkoSiirretty;
+  }
+  void asetaOnkoSiirretty(boolean x) {
+    this.onkoSiirretty = x;
+  }
   public void asetaKoo(int x,int y) {
     this.x = x;
     this.y = y;
@@ -37,6 +40,9 @@ public class Nappula{
   public int annaY() {
      return y;
    }
+  public void asetaVari(Vari vari) {
+    this.vari = vari;
+  }
   public Vari annaVari(){
     return vari;
   }
@@ -45,6 +51,12 @@ public class Nappula{
   }
   public Tyyppi annaTyyppi() {
     return tyyppi;
+  }
+  public void asetaOnkoSyoty(boolean b) {
+    onkoSyoty = b;
+  }
+  public boolean annaOnkoSyoty() {
+    return onkoSyoty;
   }
  }
   
