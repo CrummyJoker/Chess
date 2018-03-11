@@ -118,7 +118,6 @@ public class Shakki{
       System.out.println("Muutoin paina Enter");
       String aloitus = sc.nextLine();
       String lg = "LG";
-      lauta = lataaTallennus(lauta);
       if (aloitus == lg){
         lauta = lataaTallennus(lauta);
       }
