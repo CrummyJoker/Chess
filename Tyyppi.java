@@ -11,7 +11,6 @@ public enum Tyyppi{
           }
           if (siirretty == false) { //
             if ((Xmihin - Xmista == 2 || Xmihin - Xmista == 1) && Ymihin - Ymista == 0) {
-              //siirra();
               return true; //vaihda sotilaan onSiirretty-attribuutin arvoksi true ja palauta true
             }
           } else { // ei ensimmäinen siirto
