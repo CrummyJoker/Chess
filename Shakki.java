@@ -1,12 +1,136 @@
 import java.io.*;
-import java.util.*;
-// PELIN PERUSLOGIIKKA TOIMII
-//ohestalyönti puuttuu, kuninkaan matittaminen puuttuu (peli loppuu nyt kuninkaan syömiseen), sotilaan promootio puuttuu
+import java.util.Scanner;
+
 public class Shakki{
   public static void main(String[] args){
 
+  String nimi = ""; //pelin nimi
     int siirrot = 0; //toteutuneiden siirtojen määrä
+    boolean peliKaynnissa = false;
+    Scanner sc = new Scanner(System.in);
+    Nappula[][]lauta = null;
+    int nx;
+    int ny;
+    int mx;
+    int my;
     
+    System.out.println("Tervetuloa pelaamaan shakkia!");
+    System.out.println("Jos haluat jatkaa tallennettua peliä, kirjoita 'LG'.\nJos haluat aloittaa uuden pelin, kirjoita 'N'.\nJos haluat lopettaa heti, kirjoita 'E'.");
+
+    peliKaynnissa = true;
+    
+    while (peliKaynnissa) {
+      String n = sc.nextLine();
+      if (n.equals("E")) {
+        peliKaynnissa = false;
+        System.out.println("Olet poistunut pelistä. Muutoksia ei tallennettu.");
+        sc.close();
+        return;
+      }
+      if (n.equals("Q")){
+        System.out.println("Tallennetaanko peli (Y/Mitä vain)?");
+        String tallennetaan = sc.nextLine();
+        if (tallennetaan.equals("Y")){
+          if (nimi.equals("")) {
+            System.out.println("Anna pelille nimi");
+            nimi = sc.nextLine();
+          }
+          String lautaPolku = "C:\\Users\\Public\\Documents\\" + nimi + ".ser";
+          String siirrotPolku = "C:\\Users\\Public\\Documents\\" + nimi + "siir.ser";
+          tallennaLauta(lautaPolku, lauta);
+          tallennaSiirrot(siirrotPolku, siirrot);
+          System.out.println("Jos haluat jatkaa tallennettua peliä, kirjoita 'LG'.\nJos haluat aloittaa uuden pelin, kirjoita 'N'.\nJos haluat lopettaa tallentamatta, kirjoita 'E'.");
+        } else {
+          sc.close();
+          System.out.println("Olet poistunut pelistä. Muutoksia ei tallennettu.");
+          return;
+        }
+        continue;
+      }
+      if (n.equals("LG")){ 
+         System.out.println("Anna sen pelin nimi (ilman tiedostopäätettä), jonka haluat ladata");
+         nimi = sc.nextLine();
+         String lautaPolku = "C:\\Users\\Public\\Documents\\" + nimi + ".ser";
+         String siirrotPolku = "C:\\Users\\Public\\Documents\\" + nimi + "siir.ser";
+         lauta = lataaLauta(lautaPolku);
+         if (lauta==null) {
+           System.out.println("Lautaa ei ladattu. LG: lataa peli, N: uusi peli, E: lopeta ja sulje");
+           continue;
+         }
+         siirrot = lataaSiirrot(siirrotPolku);
+         if (siirrot==-1) {
+           System.out.println("Siirtojen määrää ei voitu ladata. Laskuri aloittaa nollasta.");
+           siirrot++;
+         }
+         Shakki.printtaaLauta(lauta);
+         System.out.println("Pelissä tehty " + siirrot + " siirtoa.");
+         System.out.println("Siirra nappulaa : ");
+         continue;
+       }
+      // aloitetaan uusi peli
+      //luodaan uusi pelilauta, johon nappulat tallennetaan
+      if (n.equals("N")) {
+        nimi = "";
+        lauta = luoLauta();
+        System.out.println("Aloitetaan peli");
+        Shakki.printtaaLauta(lauta);
+        System.out.println("Siirra nappulaa : ");
+        continue;
+      }
+      if (lauta==null) {
+        System.out.println("Et ole vielä valinnut tallennettua peliä tai aloittanut uutta. LG: lataa peli, N: uusi peli, E: lopeta ja sulje");
+        continue;
+      }
+      String m = sc.nextLine();
+      if (m.equals("") || n.equals("")) {
+        System.out.println("Et antanut ruutua, josta tai johon nappulan tulisi siirtyä.\nSiirrä nappulaa :");
+        continue;
+      }
+       
+      char nc = n.charAt(0);
+      char mc = m.charAt(0);
+      try {
+        nx = Integer.parseInt(n.substring(1)) -1;
+        mx = Integer.parseInt(m.substring(1)) -1;
+        ny = annaY(nc);
+        my = annaY(mc);
+      } catch (ArrayIndexOutOfBoundsException e) { // käyttäjän syöttämä sarakenumero (esim. syötteessä A2 numero 2) <1 tai >8
+        System.out.println("Syötit ruudun, jota ei ole olemassa.\nSiirrä nappulaa: ");
+        continue;
+      } catch (NumberFormatException e) { //käyttäjä on syöttänyt sarakenumeroksi numeron asemasta jonkin muun merkin (esim. AA)
+        System.out.println("Syötit ruudun, jota ei ole olemassa.\nSiirrä nappulaa: ");
+        continue;
+      }
+      
+      Nappula siirtyva = lauta[nx][ny]; 
+      Nappula kohde = lauta[mx][my];
+      
+      if (siirra(siirtyva, kohde, lauta, siirrot)) { // siirra palauttaa true, jos siirto toteutuu
+        siirrot++; // vuoron suorituksen jälkeen kasvata laskurin lukemaa yhdellä
+        if (onkoMatti(annaValkeaKuningas(lauta), lauta)) {
+          System.out.println("Shakki matti. Musta voitti.\n"); // Mattiin loppunutta peliä ei voi tallentaa.
+          peliKaynnissa = false;
+        } if (onkoMatti(annaMustaKuningas(lauta), lauta)) {
+          System.out.println("Shakki matti. Valkoinen voitti.\n");
+          peliKaynnissa = false;
+        }
+      } else { //siirto ei toteutunut
+        System.out.println("Pelissä tehty " + siirrot + " siirtoa.");
+        continue;
+      }
+      Shakki.printtaaLauta(lauta);
+      System.out.println("Pelissä tehty " + siirrot + " siirtoa.");
+      System.out.println("Siirrä nappulaa:");               
+    }
+    sc.close();
+  }
+  
+  // METODIT ---------------------------------
+  
+  // luo pelilaudan ja kaikki shakkinappulat, asettaa nappulat laudalle aloitusasemiin
+  public static Nappula[][] luoLauta() {
+    
+    Nappula[][]lauta = new Nappula[8][8];
     //Kuningattaret
     Nappula q1 = new Nappula(Vari.V,Tyyppi.Q,7,3);
     Nappula q2 = new Nappula(Vari.M,Tyyppi.Q,0,3);
@@ -78,11 +202,8 @@ public class Shakki{
     Nappula e30 = new Nappula(Vari.E,Tyyppi.E,5,5);
     Nappula e31 = new Nappula(Vari.E,Tyyppi.E,5,6);
     Nappula e32 = new Nappula(Vari.E,Tyyppi.E,5,7);
-
-
     
-    //lauta //ruudussa [0][0] oli aiemmin t1, ruutuun korjattu t3
-    Nappula[][] lauta = new Nappula[8][8];
+        
     lauta[0][0]=t3; lauta[0][1]=r3; lauta[0][2]=l3; lauta[0][3]=q2;
     lauta[0][4]=k2; lauta[0][5]=l4; lauta[0][6]=r4; lauta[0][7]=t4;
     lauta[1][0]=s9; lauta[1][1]=s10; lauta[1][2]=s11; lauta[1][3]=s12;
@@ -99,77 +220,33 @@ public class Shakki{
     lauta[6][4]=s5; lauta[6][5]=s6; lauta[6][6]=s7; lauta[6][7]=s8;
     lauta[7][0]=t1; lauta[7][1]=r1; lauta[7][2]=l1; lauta[7][3]=q1;
     lauta[7][4]=k1; lauta[7][5]=l2; lauta[7][6]=r2; lauta[7][7]=t2;
-
     
-Shakki.printtaaLauta(lauta);
-    
-    Scanner sc = new Scanner(System.in);
-    boolean peliKaynnissa = true;
-    int nx;
-    int ny;
-    int mx;
-    int my;
-    //char jatka;
-    
-    //try-catchit nappaavat käyttäjän kirjoittamat virhearvot. Exceptionit pitäisi saada samaan lohkoon, ks. kommentti alla
-    while (peliKaynnissa) {
-      System.out.println("Tervetuloa pelaamaan shakkia!");
-      System.out.println("Jos haluat ladata pelin, kirjoita 'LG'.");
-      System.out.println("Muutoin paina Enter");
-      String aloitus = sc.nextLine();
-      if (aloitus == "LG";){
-        lauta = lataaTallennus();
-      }
-      System.out.println("Aloitetaan peli");
-      System.out.println("Jos haluat lopettaa, kirjoita'Q'");
-      System.out.println("Siirra nappulaa : ");
-      String n = sc.nextLine();
-      String m = sc.nextLine();
-      if (n =="Q"||m=="Q"){
-          System.out.println("Tallennetaanko peli (Y/Mitä vain)?");
-          String tallennanna = sc.nextLine();
-          if (tallennanna == "Y"){
-            tallenna();
-          }
-          
-          peliKaynnissa = false;
+    return lauta;
+  }
+  public static Nappula annaMustaKuningas(Nappula[][]lauta) {
+    Nappula mk = null;
+    for (int i=0; i<8; i++) {
+      for (int j=0; j<8; j++) {
+        if (lauta[i][j].annaTyyppi()==Tyyppi.K && lauta[i][j].annaVari()==Vari.M) {
+          mk = lauta[i][j];
         }
-      char nc = n.charAt(0);
-      char mc = m.charAt(0);
-      try {
-      nx = Integer.parseInt(n.substring(1)) -1;
-      mx = Integer.parseInt(m.substring(1)) -1;
-      ny = annaY(nc);
-      my = annaY(mc);
-      } catch (ArrayIndexOutOfBoundsException e) {// (ArrayIndexOutOfBoundsException|NumberFormatException e) ei jostain syystä toiminut
-        System.out.println("Syötit ruudun, jota ei ole olemassa.\n");
-        continue;
-      } catch (NumberFormatException e) {
-        System.out.println("Syötit ruudun, jota ei ole olemassa.\n");
-        continue;
       }
-      Nappula temp1 = lauta[nx][ny];
-      Nappula temp2 = lauta[mx][my];
-      if (siirra(temp1,temp2,lauta, siirrot)==true) {
-        siirrot++; // vuoron suorituksen jälkeen kasvata laskurin lukemaa yhdellä
-      } else {
-        System.out.println("Pelissä tehty siirtoja : " + siirrot);
-        continue;
-      }
-      Shakki.printtaaLauta(lauta);
-      System.out.println("Pelissä tehty siirtoja : " + siirrot);
-    
-      if (k1.annaOnkoSyoty() || k2.annaOnkoSyoty()) {
-        System.out.println("Peli päättyi.");
-        peliKaynnissa = false;
-      } else {
-        peliKaynnissa = true;
-      }                      
     }
-    sc.close();
+    return mk;
+  }
+  public static Nappula annaValkeaKuningas(Nappula[][]lauta) {
+    Nappula vk=null;
+    for (int i=0; i<8; i++) {
+      for (int j=0; j<8; j++) {
+        if (lauta[i][j].annaTyyppi()==Tyyppi.K && lauta[i][j].annaVari()==Vari.V) {
+          vk = lauta[i][j];
+        }
+      }
+    }
+    return vk;
   }
   
-  //muuntaa y-koordinaatin käyttäjän syöttämästä kirjaimesta indeksinumeroksi
+  //muuntaa käyttäjän syöttämän kirjaimen (esim. kirjain A syötteessä A1) lauta-matriisin (Nappula[i][j]lauta) indeksinumeroksi j.
   public static int annaY(char c) throws ArrayIndexOutOfBoundsException{
     if (c == 'A'||c == 'a') {
       return 0;
@@ -185,7 +262,7 @@ Shakki.printtaaLauta(lauta);
       return 5;
     } else if (c=='G'||c=='g') {
       return 6;
-    } else if(c=='H'||c=='h') { // F ja f vaihdettu H:ksi ja h:ksi
+    } else if (c=='H'||c=='h') { // F ja f vaihdettu H:ksi ja h:ksi
       return 7;
     } return -1; //palauttaa 2:n sijaan -1, jos käyttäjä syöttää virheellisen arvon
   }
@@ -212,8 +289,6 @@ Shakki.printtaaLauta(lauta);
                lauta[mx][my] = n;
                temp.asetaKoo(nx,ny);
                lauta[nx][ny] = temp;
-               //n.asetaKoo(mx,my);
-               //m.asetaKoo(nx,ny);
                return true;
              } else { // nappula syo toisen nappulan
                n.asetaKoo(mx,my);
@@ -240,7 +315,7 @@ Shakki.printtaaLauta(lauta);
     }
     return false;
   }
-  // Seuraava metodi pitka ja sekava
+  // Seuraava metodi nayttaa rumalta, voisi tehdä varmaan paljon paremminkin
   //testaa, onko linjalla tiellä muita nappuloita
   //AO: onkoSiirtoLaillinen()==true
   public static boolean voikoSiirtya(Nappula n, Nappula m, Nappula[][]lauta){
@@ -280,7 +355,7 @@ Shakki.printtaaLauta(lauta);
         }
         return true;
       }
-       //siirtyy diagonaalilla. 0,0 ja 0,7 mustat tornit. Kun x ja y pienenee, ok, kun x pienenee ja y suurenee, laskee mitä sattuu.
+       //siirtyy diagonaalilla. 0,0 ja 0,7 mustat tornit.
       int yKerr = 0;
       if (m.annaY() != n.annaY() && m.annaX() != n.annaX()){
         
@@ -291,16 +366,16 @@ Shakki.printtaaLauta(lauta);
         }
         if (m.annaX() - n.annaX() > 0) { 
           for (int i=n.annaX()+1, j=n.annaY()+ yKerr; i<m.annaX(); i++, j+=1*yKerr) { // x:ää kasvatettaessa
-            System.out.print("x = " + i);
-            System.out.println(" ja y = " + j);
+            //System.out.print("x = " + i);
+            //System.out.println(" ja y = " + j);
             if ((lauta[i][j]).annaTyyppi() != Tyyppi.E) {
               return false;
             }
           }
         } else {
           for (int i=n.annaX()-1, j=n.annaY()+ yKerr; i>m.annaX(); i--, j+=1*yKerr) { // x:ää pienennettäessä
-            System.out.print("x = " + i);
-            System.out.println(" ja y = " + j);
+            //System.out.print("x = " + i);
+            //System.out.println(" ja y = " + j);
             if ((lauta[i][j]).annaTyyppi() != Tyyppi.E) {
               return false;
             }
@@ -328,36 +403,74 @@ Shakki.printtaaLauta(lauta);
     return false;
   }
       
-  //onkoUhattu():boolean Jos laudalla sellainen vastustajan nappula, joka voi tulevalla vuorolla syödä
-  // nyt siirtyvän nappulan ruudusta, johon se on parhaillaan siirtymässä, palauta true.
+  //onkoUhattu():boolean Jos laudalla sellainen vastustajan nappula, joka voi vastustajan seuraavalla siirrolla syödä nyt
+  // siirtyvän nappulan ruudusta, johon se on siirtymässä, palauta true.
   // m = kohderuutu, johon nappula n on siirtymässä
   // u = potentiaalisesti kohderuutua uhkaava nappula, uhattava = siirtyvä nappula kohderuudussa (nappulalla kohderuudun indeksit)
   // metodissa bugi: jos nyt siirtyvä nappula n estää uhkaavaa nappulaa u siirtymästä ollessaan nykyisessä ruudussaan, 
-  // voikoSiirtya-metodi palauttaa truen sijaan false.
+  // niin voikoSiirtya-metodi palauttaa truen sijaan false.
   
-  //metodilla typera nimi
-  public static boolean onkoKohdeUhattu(Nappula siirtyva, Nappula kohde, Nappula[][]lauta){
-    Nappula uhattava = new Nappula(siirtyva.annaVari(), siirtyva.annaTyyppi(), kohde.annaX(), kohde.annaY());
-    Nappula u;
+  public static boolean onkoKohdeUhattu(Nappula siirtyva, Nappula kohde, Nappula[][]lauta) {
+    Nappula[][]tmp = new Nappula[8][8];
     for (int i=0; i<8; i++){
       for (int j=0; j<8; j++){
-        u = lauta[i][j]; 
-        if ((i==uhattava.annaX() && j==uhattava.annaY()) || (i==u.annaX() && j==u.annaY())) {
-          continue; // nappula ei uhkaa itseään eikä nappulaa voi uhata tyhjä ruutu, josta se siirtyi edellisellä siirrolla
+        tmp[i][j] = new Nappula(lauta[i][j].annaVari(), lauta[i][j].annaTyyppi(), i, j);
+      }
+    }
+    tmp[kohde.annaX()][kohde.annaY()] = new Nappula(siirtyva.annaVari(), siirtyva.annaTyyppi(), kohde.annaX(), kohde.annaY()); //kohdepaikalle
+    tmp[siirtyva.annaX()][siirtyva.annaY()] = new Nappula(Vari.V, Tyyppi.E, siirtyva.annaX(), siirtyva.annaY());
+    if (onkoUhattu(tmp[kohde.annaX()][kohde.annaY()], tmp)) {
+      return true;
+    }
+    return false;
+  }
+  
+  public static boolean onkoUhattu(Nappula uhattava, Nappula[][]lauta){
+    Nappula uhka;
+    for (int i=0; i<8; i++){
+      for (int j=0; j<8; j++){
+        uhka = lauta[i][j];
+        if (i==uhattava.annaX() && j==uhattava.annaY()) { // uhka != uhattava eli nappula ei uhkaa itseään
+          continue;
         }
-        if (u.annaTyyppi()!= Tyyppi.E && u.annaVari()!= uhattava.annaVari()) { //ruudussa on nappula, joka on eri värinen kuin uhattava: voi uhata
-          if (u.annaTyyppi().onkoSiirtoLaillinen(u.annaX(), uhattava.annaX(), u.annaY(), uhattava.annaY(), u.annaVari(), u.annaOnkoSiirretty())) {
-            if (voikoSiirtya(u,uhattava,lauta) && voikoRuutuunSiirtaa(u,uhattava)) { 
+        if (uhka.annaTyyppi()!= Tyyppi.E && uhka.annaVari()!= uhattava.annaVari()) { // uhka == vastapuolen nappula
+          if (uhka.annaTyyppi().onkoSiirtoLaillinen(uhka.annaX(), uhattava.annaX(), uhka.annaY(), uhattava.annaY(), uhka.annaVari(), uhka.annaOnkoSiirretty())) {
+            if (voikoSiirtya(uhka,uhattava,lauta) && voikoRuutuunSiirtaa(uhka,uhattava)) { 
+              System.out.println("onkoUhattu: true");
               return true;
             }
           }
         }
       }
     }
+   // System.out.println("onkoUhattu palautti falsen");
     return false;
   }
+  
+  public static boolean onkoMatti(Nappula kuningas, Nappula[][]lauta) { //onko ympärillä nappuloita ja jos joku ruutu tyhjä, onko se uhattu.
 
+     if (onkoUhattu(kuningas, lauta)) { //uhataanko kuningasta nykyisessä asemassa
+         // System.out.println("onkoMatti: kuningasta uhataan"); //tämä ok
+       for (int k=0; k<8; k++){
+         for (int l=0; l<8; l++){// käydään koko lauta läpi
+           Nappula kohde = lauta[k][l]; //kohde: mihin kuningas siirtyisi
+           if (k == kuningas.annaX() && l == kuningas.annaY()) { // se ruutu, jossa kuningas on nyt. Ei voi siirtyä paikallaan.
+             continue;
+           }
+           if ((k == kuningas.annaX()+1 || k == kuningas.annaX()-1 || k == kuningas.annaX()) && (l == (kuningas.annaY()+1) || l == (kuningas.annaY()-1) || l == kuningas.annaY())) {
+             if (kohde.annaVari() != kuningas.annaVari() && !(onkoKohdeUhattu(kuningas, kohde, lauta))) { //kohderuudussa ei omanvärinen nappula eikä se ole uhattu
+               return false; // ja lisäksi kohde ei ole uhattu
+             }
+           }
+         }
+       }
+     } else { //kuningasta ei uhata nykyisessä asemassa
+        return false;
+     }
+    return true;
+  }
 
+  // tulostaa pelilaudan ja sillä seisovat nappulat komentoriville.
   public static void printtaaLauta(Nappula[][] lauta){
     String[][] a = new String[12][12];
     for(int i = 0; i<8;i++){
@@ -394,22 +507,62 @@ Shakki.printtaaLauta(lauta);
   }
     //Tallennus
   
-public void tallenna(){
+  public static void tallennaLauta(String polku, Nappula[][]lauta){
+    try{ 
+      FileOutputStream fos = new FileOutputStream(polku);//("C:\\Users\\Public\\Documents\\jokunimi.ser");
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+      oos.writeObject(lauta);
+      
+      oos.close();
+    }
+    catch(IOException e){
+      System.out.println("Virhe tiedostoa luettaessa! Virhesanoma: " + e.getMessage());
+    }
+    System.out.println("Peli tallennettu tiedostoon " + polku);
+  }
+  
+// tallennetun pelin lataaminen
+public static Nappula[][] lataaLauta(String polku)/*(Nappula[][] lauta)*/{ // tämä ottaa väärän parametrin! Pitäisi olla string, tiedostopolku
+  //try{FileInputStream fis = new FileInputStream("C:\\Users\\Public\\Documents\\shakki.ser");
+  Nappula[][]lauta = null;
+  try{
 
-   FileOutputStream fos = new FileOutputStream("shakki.ser");
-   ObjectOutputStream oos = new ObjectOutputStream(fos);
-   oos.writeObject(lauta);
-
-   oos.close();
- }
-    
-    //Lataa
-public Nappula[][] lataaTallennus(){
-   FileInputStream fis = new FileInputStream("shakki.ser");
+   FileInputStream fis = new FileInputStream(polku);
    ObjectInputStream ois = new ObjectInputStream(fis);
    lauta = (Nappula[][]) ois.readObject();
    ois.close();
-
+   //System.out.println("Peli ladattu!");
+  } catch (IOException e) {
+    System.out.println("Tallennusta ei ole! " + e.getMessage());
+  } catch(ClassNotFoundException vdi){
+    System.out.println(vdi.getMessage());
+  }
    return lauta;
+  
+}
+public static void tallennaSiirrot(String polku, int siirrot){
+  
+  PrintWriter writer = null;
+  try {
+    writer = new PrintWriter(new FileWriter(polku));
+  } catch (IOException e){
+    System.out.println("Virheellinen tiedostopolku" + e.getMessage());
+  }
+  writer.write(Integer.toString(siirrot));
+  writer.close();
+}
+
+public static int lataaSiirrot(String polku) {
+  int siirrot = 0;
+  Scanner sc = null;
+  try {  
+    sc = new Scanner(new File(polku));
+  } catch (IOException e) {
+    System.out.println("Virhe tiedostoa luettaessa. Virhesanoma: " + e.getMessage());
+    return 0;
+  }
+  siirrot = Integer.parseInt(sc.nextLine());
+  sc.close();
+  return siirrot;
   }
 }
