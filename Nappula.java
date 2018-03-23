@@ -1,3 +1,4 @@
+// Luokasta luodaan shakkinappuloita. Sisältää nappulan koordinaatit, värin, tyypin ja tiedon, onko nappulaa siirretty pelin aikana vähintään kerran.
 public class Nappula implements java.io.Serializable {
   public static final long serialVersionUID = 1L;
   private boolean onkoSiirretty = false;
