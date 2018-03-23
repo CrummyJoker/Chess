@@ -1,11 +1,12 @@
-public class Nappula{
+public class Nappula implements java.io.Serializable {
+  public static final long serialVersionUID = 1L;
   private boolean onkoSiirretty = false;
-  private boolean onkoSyoty = false; //tata attribuuttia ei kayteta pelissa viela mihinkaan
-  int x;
-  int y;
+  private boolean onkoSyoty = false;
+  private int x;
+  private int y;
   private String printti;
-  Vari vari;
-  Tyyppi tyyppi;
+  private Vari vari;
+  private Tyyppi tyyppi;
   
   Nappula(Vari vari,Tyyppi tyyppi,int x,int y) {
     this.vari = vari;
@@ -14,7 +15,6 @@ public class Nappula{
     this.y = y;
     printti = "["+vari+tyyppi.toString()+"]";
   }
-  
   public String toString() {
     return printti;
   }
@@ -24,6 +24,7 @@ public class Nappula{
   void asetaOnkoSiirretty(boolean x) {
     this.onkoSiirretty = x;
   }
+  
   public void asetaKoo(int x,int y) {
     this.x = x;
     this.y = y;
@@ -58,5 +59,4 @@ public class Nappula{
   public boolean annaOnkoSyoty() {
     return onkoSyoty;
   }
- }
-  
+}
